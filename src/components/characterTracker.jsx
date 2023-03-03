@@ -99,6 +99,11 @@ function CharacterTracker() {
     return characterList.findIndex((character) => character.id === id);
   };
 
+  const clearList = () => {
+    const list = [];
+    setCharacterList(list);
+  };
+
   return (
     <div className="m-2">
       <h1>DnD Tracker</h1>
@@ -115,6 +120,9 @@ function CharacterTracker() {
           handleRemove={removeCharacter}
         />
         <EnemyAdder addCharacter={addCharacter} />
+        <button className="m-3" onClick={clearList}>
+          Clear all Characters
+        </button>
       </div>
     </div>
   );
