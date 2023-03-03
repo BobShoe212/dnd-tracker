@@ -111,7 +111,10 @@ function CharacterTracker() {
           handleHPChange={handleHPChange}
         />
         <HeroAdder addCharacter={addCharacter} />
-        <InitiativeTracker characters={characterList.slice()} />
+        <InitiativeTracker
+          characters={characterList.slice()}
+          handleRemove={removeCharacter}
+        />
         <EnemyAdder addCharacter={addCharacter} />
       </div>
     </div>
