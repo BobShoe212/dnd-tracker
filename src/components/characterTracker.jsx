@@ -35,7 +35,10 @@ function CharacterTracker() {
     console.log("Change init of character with id: ", id, "to: ", num);
     let list = characterList.slice();
     const current = getCharacterIndexByID(id);
-    const newInit = Number.parseInt(num);
+    let newInit = Number.parseInt(num);
+    if (isNaN(newInit)) {
+      newInit = 0;
+    }
     list[current].initValue = newInit;
     console.log(list);
     setCharacterList(list);
