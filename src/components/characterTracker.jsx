@@ -3,6 +3,7 @@ import HeroList from "./heroTracker/heroList";
 import HeroAdder from "./heroTracker/heroAdder";
 import InitiativeTracker from "./initiativeTracker/initiativeTracker";
 import EnemyAdder from "./initiativeTracker/enemyAdder";
+import { uuid } from "uuidv4";
 
 function CharacterTracker() {
   //sets the state for characterList, with an initial state loaded from local storage
@@ -26,6 +27,17 @@ function CharacterTracker() {
     if (list[current].hpValue > list[current].maxHP) {
       list[current].hpValue = list[current].maxHP;
     }
+    setCharacterList(list);
+  };
+
+  //change the init value of the specified character, based on the id given, to the number given
+  const handleInitChange = (id, num) => {
+    console.log("Change init of character with id: ", id, "to: ", num);
+    let list = characterList.slice();
+    const current = getCharacterIndexByID(id);
+    const newInit = Number.parseInt(num);
+    list[current].initValue = newInit;
+    console.log(list);
     setCharacterList(list);
   };
 
@@ -54,9 +66,11 @@ function CharacterTracker() {
       });
     } else {
       for (let i = 0; i < hp.value; i++) {
+        let enemyNumber = i + 1;
+        let enemyName = newName.value + enemyNumber;
         list = list.concat({
           id: getUniqueID() + i,
-          name: newName.value,
+          name: enemyName,
           hpValue: 1,
           maxHP: 1,
           initValue: Number.parseInt(init.value),
@@ -109,6 +123,7 @@ function CharacterTracker() {
           characters={characterList.slice()}
           handleRemove={removeCharacter}
           handleHPChange={handleHPChange}
+          handleInitChange={handleInitChange}
         />
         <HeroAdder addCharacter={addCharacter} />
         <InitiativeTracker

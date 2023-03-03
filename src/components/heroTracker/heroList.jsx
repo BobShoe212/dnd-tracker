@@ -31,6 +31,7 @@ function HeroList(props) {
           initValue={x.initValue}
           handleRemove={props.handleRemove}
           handleHPChange={props.handleHPChange}
+          handleInitChange={props.handleInitChange}
           ally={x.ally}
         />
       ))}

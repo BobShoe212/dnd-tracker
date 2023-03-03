@@ -18,18 +18,12 @@ function HeroAdder(props) {
         placeholder="Enter HP"
         required={true}
       ></input>
-      <input
-        type="text"
-        id="initTextbox"
-        placeholder="Enter Initiative"
-        required={true}
-      ></input>
       <button
         onClick={() =>
           props.addCharacter(
             document.getElementById("nameTextbox"),
             document.getElementById("hpTextbox"),
-            document.getElementById("initTextbox"),
+            { value: 1 },
             true
           )
         }
