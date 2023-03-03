@@ -3,6 +3,7 @@ import HeroList from "./heroTracker/heroList";
 import HeroAdder from "./heroTracker/heroAdder";
 import InitiativeTracker from "./initiativeTracker/initiativeTracker";
 import EnemyAdder from "./initiativeTracker/enemyAdder";
+import { v4 as uuid } from "uuid";
 
 function CharacterTracker() {
   //sets the state for characterList, with an initial state loaded from local storage
@@ -56,7 +57,7 @@ function CharacterTracker() {
 
     if (ally) {
       list = list.concat({
-        id: getUniqueID(),
+        id: uuid(),
         name: newName.value,
         hpValue: Number.parseInt(hp.value),
         maxHP: Number.parseInt(hp.value),
@@ -68,7 +69,7 @@ function CharacterTracker() {
         let enemyNumber = i + 1;
         let enemyName = newName.value + enemyNumber;
         list = list.concat({
-          id: getUniqueID() + i,
+          id: uuid(),
           name: enemyName,
           hpValue: 1,
           maxHP: 1,
@@ -83,22 +84,6 @@ function CharacterTracker() {
     newName.value = "";
     hp.value = "";
     init.value = "";
-  };
-
-  //checks the list of characters for and returns the lowest unique id possible
-  const getUniqueID = () => {
-    let list = characterList.slice();
-    for (let newID = 0; ; newID++) {
-      let unique = true;
-      for (let i = 0; i < list.length; i++) {
-        if (newID === list[i].id) {
-          unique = false;
-        }
-      }
-      if (unique) {
-        return newID;
-      }
-    }
   };
 
   //removes a character from the array given the characters id
