@@ -9,11 +9,11 @@ function HeroList(props) {
       heroList = heroList.concat(list[i]);
     }
   }
-  if (list.length === 0)
+  if (heroList.length === 0)
     return (
       <React.Fragment>
         <h1>Hero List</h1>
-        <h2>There are no Characters, add some below</h2>
+        <h2>There are no Heroes, add some below</h2>
       </React.Fragment>
     );
 
