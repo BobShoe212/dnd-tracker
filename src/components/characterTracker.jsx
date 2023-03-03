@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import HeroList from "./heroList";
-import HeroAdder from "./heroAdder";
+import HeroList from "./heroTracker/heroList";
+import HeroAdder from "./heroTracker/heroAdder";
+import InitiativeTracker from "./initiativeTracker/initiativeTracker";
+import EnemyAdder from "./initiativeTracker/enemyAdder";
 
 function CharacterTracker() {
   //sets the state for characterList, with an initial state loaded from local storage
@@ -11,24 +13,18 @@ function CharacterTracker() {
     localStorage.setItem("characterListKey", JSON.stringify(characterList));
   }, [characterList]);
 
-  //handle an increment button click and increment the hp value of the specified character, based on the id given
-  const handleIncrement = (id) => {
-    console.log("Increment hp of character with id: ", id);
-    const list = characterList.slice();
+  //handle an hp change button click and change the hp value of the specified character, based on the id given, by the number given
+  const handleHPChange = (id, num) => {
+    console.log("Change hp of character with id: ", id, "by: ", num);
+    if (num === "") return;
+    let list = characterList.slice();
     const current = getCharacterIndexByID(id);
-    list[current].hpValue++;
-    setCharacterList(list);
-  };
-
-  //handle a deccrement button click and decrement the hp value of the specified character, based on the id given
-  const handleDecrement = (id) => {
-    console.log("Decrement hp of character with id: ", id);
-    const list = characterList.slice();
-    const current = getCharacterIndexByID(id);
-    list[current].hpValue--;
+    list[current].hpValue = list[current].hpValue + Number.parseInt(num);
     if (list[current].hpValue < 0) {
-      removeCharacter(id);
-      return;
+      list[current].hpValue = 0;
+    }
+    if (list[current].hpValue > list[current].maxHP) {
+      list[current].hpValue = list[current].maxHP;
     }
     setCharacterList(list);
   };
@@ -41,19 +37,33 @@ function CharacterTracker() {
       !Number.isInteger(Number.parseInt(hp.value)) ||
       !Number.isInteger(Number.parseInt(init.value))
     ) {
-      return;
+      return; //TODO add a popup that explains the issue
     }
     console.log("Add new Character");
     //gets a copy of the characterList and concats a new object with the given values and a unique ID
     let list = characterList.slice();
-    console.log(list);
-    list = list.concat({
-      id: getUniqueID(),
-      name: newName.value,
-      hpValue: Number.parseInt(hp.value),
-      initValue: Number.parseInt(init.value),
-      ally: ally,
-    });
+
+    if (ally) {
+      list = list.concat({
+        id: getUniqueID(),
+        name: newName.value,
+        hpValue: Number.parseInt(hp.value),
+        maxHP: Number.parseInt(hp.value),
+        initValue: Number.parseInt(init.value),
+        ally: ally,
+      });
+    } else {
+      for (let i = 0; i < hp.value; i++) {
+        list = list.concat({
+          id: getUniqueID() + i,
+          name: newName.value,
+          hpValue: 1,
+          maxHP: 1,
+          initValue: Number.parseInt(init.value),
+          ally: ally,
+        });
+      }
+    }
 
     //sets the state and clears the textboxes
     setCharacterList(list);
@@ -93,13 +103,17 @@ function CharacterTracker() {
 
   return (
     <div className="m-2">
-      <HeroList
-        characters={characterList.slice()}
-        handleRemove={removeCharacter}
-        handleIncrement={handleIncrement}
-        handleDecrement={handleDecrement}
-      />
-      <HeroAdder addCharacter={addCharacter} />
+      <h1>DnD Tracker</h1>
+      <div className="m-3">
+        <HeroList
+          characters={characterList.slice()}
+          handleRemove={removeCharacter}
+          handleHPChange={handleHPChange}
+        />
+        <HeroAdder addCharacter={addCharacter} />
+        <InitiativeTracker characters={characterList.slice()} />
+        <EnemyAdder addCharacter={addCharacter} />
+      </div>
     </div>
   );
 }

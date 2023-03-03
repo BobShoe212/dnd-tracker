@@ -4,7 +4,8 @@ import React from "react";
 
 function HeroAdder(props) {
   return (
-    <div className="m-5">
+    <div>
+      <h1>Hero Adder</h1>
       <input
         type="text"
         id="nameTextbox"

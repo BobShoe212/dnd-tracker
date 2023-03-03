@@ -2,30 +2,39 @@ import React from "react";
 import Hero from "./hero";
 
 function HeroList(props) {
-  if (props.characters.length === 0)
+  let list = props.characters.slice();
+  let heroList = [];
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].ally) {
+      heroList = heroList.concat(list[i]);
+    }
+  }
+  if (list.length === 0)
     return (
-      <div>
+      <React.Fragment>
+        <h1>Hero List</h1>
         <h2>There are no Characters, add some below</h2>
-      </div>
+      </React.Fragment>
     );
 
   //TODO add a new prop to send to Counter called ally: true/false
   return (
-    <div>
-      {props.characters.map((x) => (
+    <React.Fragment>
+      <h1>Hero List</h1>
+      {heroList.map((x) => (
         <Hero
           key={x.id}
           id={x.id}
           hpValue={x.hpValue}
+          maxHP={x.maxHP}
           name={x.name}
           initValue={x.initValue}
           handleRemove={props.handleRemove}
-          handleIncrement={props.handleIncrement}
-          handleDecrement={props.handleDecrement}
+          handleHPChange={props.handleHPChange}
           ally={x.ally}
         />
       ))}
-    </div>
+    </React.Fragment>
   );
 }
 
