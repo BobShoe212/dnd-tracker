@@ -13,7 +13,7 @@ function InitiativeTracker(props) {
   }
 
   //sort the list based on initiative value, before rendering it.
-  const sortedList = sortList(list);
+  const sortedList = list.sort((a, b) => b.initValue - a.initValue);
   return (
     <React.Fragment>
       <h1>Initiative Tracker</h1>
@@ -32,16 +32,3 @@ function InitiativeTracker(props) {
 }
 
 export default InitiativeTracker;
-
-function sortList(list) {
-  //sort the list
-  let sortedList = [];
-  for (let init = 30; init >= 0; init--) {
-    for (let i = 0; i < list.length; i++) {
-      if (list[i].initValue === init) {
-        sortedList = sortedList.concat(list[i]);
-      }
-    }
-  }
-  return sortedList;
-}
