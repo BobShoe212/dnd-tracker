@@ -3,7 +3,6 @@ import HeroList from "./heroTracker/heroList";
 import HeroAdder from "./heroTracker/heroAdder";
 import InitiativeTracker from "./initiativeTracker/initiativeTracker";
 import EnemyAdder from "./initiativeTracker/enemyAdder";
-import { uuid } from "uuidv4";
 
 function CharacterTracker() {
   //sets the state for characterList, with an initial state loaded from local storage
