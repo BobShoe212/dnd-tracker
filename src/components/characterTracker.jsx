@@ -111,21 +111,25 @@ function CharacterTracker() {
     <div className="m-2">
       <h1>DnD Tracker</h1>
       <div className="m-3">
-        <HeroList
-          characters={characterList.slice()}
-          handleRemove={removeCharacter}
-          handleHPChange={handleHPChange}
-          handleInitChange={handleInitChange}
-        />
-        <HeroAdder addCharacter={addCharacter} />
-        <InitiativeTracker
-          characters={characterList.slice()}
-          handleRemove={removeCharacter}
-        />
-        <EnemyAdder addCharacter={addCharacter} />
-        <button className="m-3" onClick={clearList}>
-          Clear all Characters
-        </button>
+        <div>
+          <HeroList
+            characters={characterList.slice()}
+            handleRemove={removeCharacter}
+            handleHPChange={handleHPChange}
+            handleInitChange={handleInitChange}
+          />
+          <HeroAdder addCharacter={addCharacter} />
+        </div>
+        <div>
+          <InitiativeTracker
+            characters={characterList.slice()}
+            handleRemove={removeCharacter}
+          />
+          <EnemyAdder addCharacter={addCharacter} />
+          <button className="m-3" onClick={clearList}>
+            Clear all Characters
+          </button>
+        </div>
       </div>
     </div>
   );

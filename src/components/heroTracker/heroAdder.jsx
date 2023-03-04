@@ -5,7 +5,7 @@ import React from "react";
 function HeroAdder(props) {
   return (
     <div>
-      <h1>Hero Adder</h1>
+      <span>Add a new Hero: </span>
       <input
         type="text"
         id="nameTextbox"

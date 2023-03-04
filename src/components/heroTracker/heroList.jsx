@@ -12,15 +12,15 @@ function HeroList(props) {
   if (heroList.length === 0)
     return (
       <React.Fragment>
-        <h1>Hero List</h1>
-        <h2>There are no Heroes, add some below</h2>
+        <h2>Party</h2>
+        <h5>Party is empty, add some Heroes below</h5>
       </React.Fragment>
     );
 
   //TODO add a new prop to send to Counter called ally: true/false
   return (
     <React.Fragment>
-      <h1>Hero List</h1>
+      <h1>Party</h1>
       {heroList.map((x) => (
         <Hero
           key={x.id}

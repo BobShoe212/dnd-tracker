@@ -44,10 +44,7 @@ function HpCounter(props) {
 export default HpCounter;
 
 function isHPZero(hp) {
-  if (hp === 0) {
-    return true;
-  }
-  return false;
+  return hp === 0;
 }
 
 function getHeroHPID(id) {
