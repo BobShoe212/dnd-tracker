@@ -1,9 +1,23 @@
 import React from "react";
 import Hero from "./hero";
 
-function HeroList(props) {
+interface Character {
+  id: string;
+  name: string;
+  hpValue: number;
+  maxHP: number;
+  initValue: number;
+  ally: boolean;
+}
+
+function HeroList(props: {
+  characters: any[];
+  handleRemove: any;
+  handleHPChange: any;
+  handleInitChange: any;
+}) {
   let list = props.characters.slice();
-  let heroList = [];
+  let heroList: any[] = [];
   for (let i = 0; i < list.length; i++) {
     if (list[i].ally) {
       heroList = heroList.concat(list[i]);
@@ -21,7 +35,7 @@ function HeroList(props) {
   return (
     <React.Fragment>
       <h1>Party</h1>
-      {heroList.map((x) => (
+      {heroList.map((x: Character) => (
         <Hero
           key={x.id}
           id={x.id}

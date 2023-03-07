@@ -5,6 +5,15 @@ import InitiativeTracker from "./initiativeTracker/initiativeTracker";
 import EnemyAdder from "./initiativeTracker/enemyAdder";
 import { v4 as uuid } from "uuid";
 
+interface Character {
+  id: string;
+  name: string;
+  hpValue: number;
+  maxHP: number;
+  initValue: number;
+  ally: boolean;
+}
+
 function CharacterTracker() {
   //sets the state for characterList, with an initial state loaded from local storage
   const [characterList, setCharacterList] = useState(loadFromLocalStorage());
@@ -15,12 +24,11 @@ function CharacterTracker() {
   }, [characterList]);
 
   //handle an hp change button click and change the hp value of the specified character, based on the id given, by the number given
-  const handleHPChange = (id, num) => {
+  const handleHPChange = (id: string, num: number) => {
     console.log("Change hp of character with id: ", id, "by: ", num);
-    if (num === "") return;
     let list = characterList.slice();
     const current = getCharacterIndexByID(id);
-    list[current].hpValue = list[current].hpValue + Number.parseInt(num);
+    list[current].hpValue = list[current].hpValue + num;
     if (list[current].hpValue < 0) {
       list[current].hpValue = 0;
     }
@@ -31,11 +39,11 @@ function CharacterTracker() {
   };
 
   //change the init value of the specified character, based on the id given, to the number given
-  const handleInitChange = (id, num) => {
+  const handleInitChange = (id: string, num: number) => {
     console.log("Change init of character with id: ", id, "to: ", num);
     let list = characterList.slice();
     const current = getCharacterIndexByID(id);
-    let newInit = Number.parseInt(num);
+    let newInit = num;
     if (isNaN(newInit)) {
       newInit = 0;
     }
@@ -45,13 +53,15 @@ function CharacterTracker() {
   };
 
   //add a character to the array
-  const addCharacter = (newName, hp, init, ally) => {
+  const addCharacter = (
+    newName: string,
+    hp: number,
+    init: number,
+    ally: boolean
+  ) => {
     //makes sure the values are not empty and that hp and initiative are numbers
-    if (
-      newName.value === "" ||
-      !Number.isInteger(Number.parseInt(hp.value)) ||
-      !Number.isInteger(Number.parseInt(init.value))
-    ) {
+    if (!newName || !hp || !init) return;
+    if (newName === "" || !Number.isInteger(hp) || !Number.isInteger(init)) {
       return; //TODO add a popup that explains the issue
     }
     console.log("Add new Character");
@@ -61,36 +71,33 @@ function CharacterTracker() {
     if (ally) {
       list = list.concat({
         id: uuid(),
-        name: newName.value,
-        hpValue: Number.parseInt(hp.value),
-        maxHP: Number.parseInt(hp.value),
-        initValue: Number.parseInt(init.value),
+        name: newName,
+        hpValue: hp,
+        maxHP: hp,
+        initValue: init,
         ally: ally,
       });
     } else {
-      for (let i = 0; i < hp.value; i++) {
+      for (let i = 0; i < hp; i++) {
         let enemyNumber = i + 1;
-        let enemyName = newName.value + enemyNumber;
+        let enemyName = newName + enemyNumber;
         list = list.concat({
           id: uuid(),
           name: enemyName,
           hpValue: 1,
           maxHP: 1,
-          initValue: Number.parseInt(init.value),
+          initValue: init,
           ally: ally,
         });
       }
     }
 
-    //sets the state and clears the textboxes
+    //sets the state
     setCharacterList(list);
-    newName.value = "";
-    hp.value = "";
-    init.value = "";
   };
 
   //removes a character from the array given the characters id
-  const removeCharacter = (id) => {
+  const removeCharacter = (id: string) => {
     console.log("Remove", id);
     const list = characterList.slice();
     const current = getCharacterIndexByID(id);
@@ -98,13 +105,14 @@ function CharacterTracker() {
     setCharacterList(list);
   };
 
-  const getCharacterIndexByID = (id) => {
-    return characterList.findIndex((character) => character.id === id);
+  const getCharacterIndexByID = (id: string) => {
+    return characterList.findIndex(
+      (character: Character) => character.id === id
+    );
   };
 
   const clearList = () => {
-    const list = [];
-    setCharacterList(list);
+    setCharacterList([]);
   };
 
   return (

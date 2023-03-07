@@ -1,7 +1,7 @@
 import React from "react";
 import Character from "./character";
 
-function InitiativeTracker(props) {
+function InitiativeTracker(props: { characters: any[]; handleRemove: any }) {
   let list = props.characters.slice();
   if (list.length === 0) {
     return (

@@ -1,7 +1,13 @@
 import React from "react";
 import InitCounter from "./initCounter";
 
-function Character(props) {
+function Character(props: {
+  ally: boolean;
+  name: string;
+  initValue: any;
+  id: any;
+  handleRemove: any;
+}) {
   return (
     <div>
       <span className={getInitBadgeClasses(props.ally)}>{props.name}</span>
@@ -13,13 +19,13 @@ function Character(props) {
 
 export default Character;
 
-function getInitBadgeClasses(ally) {
+function getInitBadgeClasses(ally: boolean) {
   let classes = "badge m-2 bg-";
   classes += ally ? "primary" : "danger";
   return classes;
 }
 
-function getRemoveEnemyButton(id, ally, handleRemove) {
+function getRemoveEnemyButton(id: string, ally: boolean, handleRemove: any) {
   if (ally) {
     return;
   }

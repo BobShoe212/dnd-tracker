@@ -1,6 +1,6 @@
 import React from "react";
 
-function InitCounter(props) {
+function InitCounter(props: { initValue: number }) {
   return (
     <React.Fragment>
       <span> Initiative:</span>
