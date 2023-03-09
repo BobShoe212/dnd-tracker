@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 
 //TODO add a maxHP value to the characters
 function HpCounter(props: {
@@ -11,18 +12,21 @@ function HpCounter(props: {
   const [hpChange, setHPChange] = useState(0);
 
   return (
-    <React.Fragment>
-      <span> HP:</span>
-      <span className={getBadgeClasses(props.hpValue)}>
-        {formathpValue(props.hpValue, props.maxHP)}
-      </span>
+    <div className="row">
+      <div className="col-4 col-lg-4">
+        HP:
+        <span className={getBadgeClasses(props.hpValue)}>
+          {formathpValue(props.hpValue, props.maxHP)}
+        </span>
+      </div>
       <button
         onClick={() => props.handleHPChange(props.id, hpChange)}
-        className="btn btn-success btn-sm"
+        className="col-1 btn btn-success btn-sm"
       >
         +
       </button>
       <input
+        className="col-4 col-lg-5 bg-dark-subtle"
         type="number"
         id={heroTextBoxID}
         placeholder="Heal/Damage"
@@ -33,12 +37,12 @@ function HpCounter(props: {
         onClick={() => {
           props.handleHPChange(props.id, 0 - hpChange);
         }}
-        className="btn btn-danger btn-sm"
+        className="col-1 btn btn-danger btn-sm"
         disabled={isHPZero(props.hpValue)}
       >
         -
       </button>
-    </React.Fragment>
+    </div>
   );
 }
 
@@ -46,10 +50,6 @@ export default HpCounter;
 
 function isHPZero(hp: number) {
   return hp === 0;
-}
-
-function getHeroHPID(id: string) {
-  return "heroHPTextbox" + id;
 }
 
 function getBadgeClasses(x: number) {

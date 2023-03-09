@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import HeroList from "./heroTracker/heroList";
-import HeroAdder from "./heroTracker/heroAdder";
-import InitiativeTracker from "./initiativeTracker/initiativeTracker";
-import EnemyAdder from "./initiativeTracker/enemyAdder";
+import PartyTracker from "./Party/partyTracker";
+import HeroAdder from "./Party/heroAdder";
+import CombatTracker from "./Combat/combatTracker";
+import EnemyAdder from "./Combat/enemyAdder";
 import { v4 as uuid } from "uuid";
 
-interface Character {
+export interface Character {
   id: string;
   name: string;
   hpValue: number;
@@ -116,27 +116,37 @@ function CharacterTracker() {
   };
 
   return (
-    <div className="m-2">
-      <h1>DnD Tracker</h1>
-      <div className="m-3">
-        <div>
-          <HeroList
-            characters={characterList.slice()}
-            handleRemove={removeCharacter}
-            handleHPChange={handleHPChange}
-            handleInitChange={handleInitChange}
-          />
-          <HeroAdder addCharacter={addCharacter} />
-        </div>
-        <div>
-          <InitiativeTracker
-            characters={characterList.slice()}
-            handleRemove={removeCharacter}
-          />
-          <EnemyAdder addCharacter={addCharacter} />
-          <button className="m-3" onClick={clearList}>
-            Clear all Characters
-          </button>
+    <div>
+      <div className="header">TODO: HEADER</div>
+      <div className="container">
+        <div className="tracker bg-dark text-light">
+          <h1 className="m-5 text-center">
+            Bob's Character Tracker{" "}
+            <small className="text-muted h4">
+              For TTRPG Party and Combat tracking
+            </small>
+          </h1>
+          <div className="row">
+            <div className="col-xxl-7 col-12">
+              <PartyTracker
+                characters={characterList.slice()}
+                handleRemove={removeCharacter}
+                handleHPChange={handleHPChange}
+                handleInitChange={handleInitChange}
+              />
+              <HeroAdder addCharacter={addCharacter} />
+            </div>
+            <div className="col-xxl-5 col-12">
+              <CombatTracker
+                characters={characterList.slice()}
+                handleRemove={removeCharacter}
+              />
+              <EnemyAdder addCharacter={addCharacter} />
+            </div>
+            <button className="col-1 m-5 btn btn-danger" onClick={clearList}>
+              Clear all Characters
+            </button>
+          </div>
         </div>
       </div>
     </div>

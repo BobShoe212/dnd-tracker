@@ -1,16 +1,7 @@
-import React from "react";
 import Hero from "./hero";
+import { Character } from "../characterTracker";
 
-interface Character {
-  id: string;
-  name: string;
-  hpValue: number;
-  maxHP: number;
-  initValue: number;
-  ally: boolean;
-}
-
-function HeroList(props: {
+function PartyTracker(props: {
   characters: any[];
   handleRemove: any;
   handleHPChange: any;
@@ -25,15 +16,15 @@ function HeroList(props: {
   }
   if (heroList.length === 0)
     return (
-      <React.Fragment>
+      <div>
         <h2>Party</h2>
         <h5>Party is empty, add some Heroes below</h5>
-      </React.Fragment>
+      </div>
     );
 
   //TODO add a new prop to send to Counter called ally: true/false
   return (
-    <React.Fragment>
+    <div className="row">
       <h1>Party</h1>
       {heroList.map((x: Character) => (
         <Hero
@@ -49,8 +40,8 @@ function HeroList(props: {
           ally={x.ally}
         />
       ))}
-    </React.Fragment>
+    </div>
   );
 }
 
-export default HeroList;
+export default PartyTracker;

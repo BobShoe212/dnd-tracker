@@ -1,12 +1,12 @@
 import React from "react";
 import Character from "./character";
 
-function InitiativeTracker(props: { characters: any[]; handleRemove: any }) {
+function CombatTracker(props: { characters: any[]; handleRemove: any }) {
   let list = props.characters.slice();
   if (list.length === 0) {
     return (
       <React.Fragment>
-        <h1>Initiative Tracker</h1>
+        <h1>Combat Tracker</h1>
         <h2>There are no Characters, add some Heroes above or Enemies below</h2>
       </React.Fragment>
     );
@@ -31,4 +31,4 @@ function InitiativeTracker(props: { characters: any[]; handleRemove: any }) {
   );
 }
 
-export default InitiativeTracker;
+export default CombatTracker;
